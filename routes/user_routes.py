@@ -5,10 +5,10 @@ from services.user_service import UserService
 from models.user import User
 from typing import List, Dict
 
-router = APIRouter(prefix="/api/users", tags=["users"])
+router = APIRouter(prefix="/api", tags=["users"])
 
 
-@router.post("/ingest-json", response_model=Dict)
+@router.post("/single-user", response_model=Dict)
 async def ingest_users_json(payload: UserIngestPayload):
     """
     API 1: Ingest users from JSON payload
@@ -47,7 +47,7 @@ async def ingest_users_json(payload: UserIngestPayload):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/ingest-excel")
+@router.post("/bulk-user")
 async def ingest_users_excel(file: UploadFile = File(...)):
     """
     API 2: Ingest users from Excel file
