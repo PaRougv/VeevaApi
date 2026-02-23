@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.database import connect_to_mongo, close_mongo_connection
 from routes.user_routes import router as user_router
 from routes.server_routes import router as server_router
+from routes.scheduler_routes import router as scheduler_router
 import os
 from dotenv import load_dotenv
 
@@ -15,8 +16,8 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI(
     title="Texium API",
-    description="API for user management and server management",
-    version="1.0.0"
+    description="API for user management, server management, and job scheduling",
+    version="2.0.0"
 )
 
 # Add CORS middleware
@@ -31,6 +32,7 @@ app.add_middleware(
 # Include routes
 app.include_router(user_router)
 app.include_router(server_router)
+app.include_router(scheduler_router)
 
 
 @app.on_event("startup")
